@@ -5,14 +5,13 @@
         <div class="post-wrap center-item b-row">
             <b-col lg="6">
                 <div class="info-card rise-anim">
-                        
                     <div class="head-content">
-                            {{ post.title }}
+                            {{ getPost.title }}
                     </div>
 
                     <div class="body">
                         <p>
-                            {{ post.body }}
+                            {{ getPost.body }}
                         </p>
                     </div>
 
@@ -27,7 +26,7 @@
             </div>
 
             <div class="comments b-row">
-                <b-col lg="6" v-for="(comment, index) in comments.slice(0,3)" :key="index">
+                <b-col lg="6" v-for="(comment, index) in getComments" :key="index">
                     <post-comments :email="comment.email" :content="comment.body" :date="new Date().toLocaleString()"></post-comments>
                 </b-col>
             </div>
@@ -40,42 +39,26 @@
 <script lang="ts">
 /* Imports */
 import { Vue, Component } from 'vue-property-decorator'
-import Axios from 'axios'
 import Comments from '../components/comment.vue'
+import { mapGetters } from 'vuex'
 
 /* Components */
 @Component({
     components:{
         'post-comments' : Comments
-    }
+    },
+    computed: mapGetters(['getPost','getComments'])
 })
 
 /* Classes */
 export default class Post extends Vue {
-    id: string = this.$route.params.id
-    post: object = {}
-    comments: Array<object> = []
 
-
+    id: string = this.$route.params.id;
+    
     mounted(){
-        /* Pulling data from api */
-        Axios.get('https://jsonplaceholder.typicode.com/posts/' + this.id ).then(response => {
-            this.post = response.data;        
-        }).catch(function (error) {
-            // handle error
-            console.log(error);
-        })
-
-        /* Pulling data from api */
-        Axios.get('https://jsonplaceholder.typicode.com/posts/' + this.id + '/comments').then(response => {
-            this.comments = response.data;
-        }).catch(function (error) {
-            // handle error
-            console.log(error);
-        })
-
-      }
-
+        this.$store.dispatch('getPost', this.id)
+        this.$store.dispatch('getComments', this.id);
+    }
 }
 </script>
 

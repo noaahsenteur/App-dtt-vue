@@ -5,6 +5,7 @@ import Categories from '../views/Categories.vue'
 import Random from '../views/Random.vue'
 import Post from '../views/Post.vue'
 import Sitemap from '../views/Sitemap.vue'
+import { routeInterface } from '@/interfaces/interface'
 
 Vue.use(VueRouter)
 
@@ -42,26 +43,20 @@ const router = new VueRouter({
   routes
 })
 
-const routerOpt: Array<object> = router.options.routes || [{}];
-
-function getRoutesList(routes: Array<object>, pre: string): Array<object> {
-  return routes.reduce((array: any, route: any) => {
+const routerOpt: Array<object> | undefined = router.options.routes;
+function getRoutesList(routes: Array<object> | undefined, pre: string) {
+  return routes.reduce((array: string[], route: routeInterface) => {
+    console.log(route);
     const path = `${pre}${route.path}`;
     if (route.path !== '*') {
       array.push(path);
-    }
-
-    if (route.children) {
-      array.push(...getRoutesList(route.children, `${path}/`));
     }
     return array;
   }, []);
 }
 
 function getRoutesXML(): string {
-  const list: string = getRoutesList(routerOpt, '')
-    .map((route: any) => `<url><loc>${route}</loc></url>`)
-    .join('\r\n');
+  const list: string = getRoutesList(routerOpt, '').map((route: string) => `<url><loc>${route}</loc></url>`).join('\r\n');
   return `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
     ${list}
   </urlset>`;

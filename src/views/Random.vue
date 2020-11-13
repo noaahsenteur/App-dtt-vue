@@ -8,7 +8,7 @@
 
         <div class="center-item b-row">
             <b-col lg="4" md="6" sm="12" xs="12" class="rise-anim">
-                <info-card :title="post.title" :content="post.body" :id="post.id" :date="post.date" ></info-card>
+                <info-card :title="getPost.title" :content="getPost.body" :id="getPost.id" :date="getPost.date"></info-card>
             </b-col>
         </div>
         
@@ -19,53 +19,39 @@
 <script lang="ts">
     /* Imports */
     import { Vue, Component } from 'vue-property-decorator' 
-    import Card from '../components/info-card.vue';
-    import Axios from 'axios'
+    import Card from '../components/info-card.vue'
+    import { mapGetters } from 'vuex'
     
-    /* Interface */
-    interface PostObject {
-        [date: string]: any;
-    }
-
     /* Components */
     @Component({
         components: {
             'info-card': Card
-        }
+        },
+        computed: mapGetters(['getPost'])
     })
 
     /* Classes */
     export default class Random extends Vue {
 
-        post: PostObject = {}
-
         /**
          * Making a function too make a random pull from the api for a random post
          */
-        RandomInt(min: number, max: number): number {
+        RandomInt(min: number, max: number): string{
 
             min = Math.ceil(min);
             max = Math.floor(max);
-            return Math.floor(Math.random() * (max - min) + min);
+            return Math.floor(Math.random() * (max - min) + min).toString();
 
         }
+        
 
        Randomize(): void {
-
-             Axios.get('https://jsonplaceholder.typicode.com/posts/'+ this.RandomInt(0,100)).then(response => {
-
-                this.post = response.data;
-                const date: Date = new Date();
-                const year: number = date.getFullYear() - Math.floor(Math.random() * 10);
-                this.post.date = year;
-            }).catch(function (error) {
-                // handle error
-                console.log(error);
-            })
+           const tempInt: string = this.RandomInt(0,100);
+           this.$store.dispatch('getPost', tempInt);
        } 
        
         /* Calling the random function */
-        created(){
+        mounted(){
             this.Randomize();
         }
     }
