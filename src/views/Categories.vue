@@ -1,12 +1,18 @@
 <!-- Template goes here -->
 <template>
+
     <div class="content-wrap">
+
         <div class="posts-overview center-item b-row">
+
             <b-col class="mb-15 rise-anim" lg="4" md="6" sm="6" xs="6" v-for="(category, index) in getCategories" :key="index">
                 <category-card  :title="category"></category-card>
             </b-col>
+
         </div>
+
     </div>
+
 </template>
 
 
@@ -27,13 +33,9 @@
     /* Classes */
     export default class Categories extends Vue {
     
-    /* Data */
-    public categoryitems: Array<object> = [];
-
-        mounted(){
+        created(): void {
             this.$store.dispatch('getCategories');
         }
-
-
+        
     }
 </script>

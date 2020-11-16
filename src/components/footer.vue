@@ -1,3 +1,4 @@
+<!-- template goes here -->
 <template>
     <div class="footer-wrap">
         <div class="links-wrapper">
@@ -14,9 +15,13 @@
 </template>
 
 <script lang="ts">
+/* Importing */
  import { Component, Vue } from 'vue-property-decorator'
 
+/* Component */
 @Component
+
+/* Classes */
 export default class Footer extends Vue {
 
 }
@@ -30,7 +35,7 @@ export default class Footer extends Vue {
         align-items: center;
     }
 
-    .footer-wrap .links-wrapper {
+    .links-wrapper {
         font-weight: 500;
         text-transform: uppercase;
         padding: 5px;
@@ -38,18 +43,18 @@ export default class Footer extends Vue {
         border-bottom: 0.5px solid rgba(0,0,0,0.1);
     }
 
-    .footer-wrap .links-wrapper a {
+    .links-wrapper a {
         color: #03396c;
     }
 
-    .footer-wrap .credits {   
+    .credits {   
         padding-top: 10px;
         text-transform: uppercase;
         font-size: 0.75em;
     }
 
     @media only screen and (max-width:767px){
-        .footer-wrap .links-wrapper {
+        .links-wrapper {
             font-size: 0.75em;
         }
     }

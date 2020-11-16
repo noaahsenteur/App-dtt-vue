@@ -40,7 +40,7 @@
             flex-direction: column;
         }
 
-        .category-card .head-content{
+        .head-content{
             padding-bottom: 25px;
             background: #6497b1;
             color: white;
@@ -51,7 +51,7 @@
             align-items: center;
         }
 
-        .category-card .body-content {
+        .body-content {
             font-size: 0.75em;
             padding: 10px 15px 25px 25px;
         }

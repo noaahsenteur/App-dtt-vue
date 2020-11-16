@@ -4,7 +4,9 @@
 
         <div class="post-wrap center-item b-row">
             <b-col lg="6">
+
                 <div class="info-card rise-anim">
+
                     <div class="head-content">
                             {{ getPost.title }}
                     </div>
@@ -16,6 +18,7 @@
                     </div>
 
                 </div>
+
             </b-col>
         </div>
 
@@ -26,9 +29,11 @@
             </div>
 
             <div class="comments b-row">
+
                 <b-col lg="6" v-for="(comment, index) in getComments" :key="index">
                     <post-comments :email="comment.email" :content="comment.body" :date="new Date().toLocaleString()"></post-comments>
                 </b-col>
+                
             </div>
 
         </div>
@@ -55,7 +60,7 @@ export default class Post extends Vue {
 
     id: string = this.$route.params.id;
     
-    mounted(){
+    created(): void {
         this.$store.dispatch('getPost', this.id)
         this.$store.dispatch('getComments', this.id);
     }
@@ -64,24 +69,24 @@ export default class Post extends Vue {
 
 <style scoped>
 
-    .content-wrap .post-wrap {
+    .post-wrap {
         margin-bottom: 15px;
         border-bottom: 1px solid rgba(242, 242, 242, 1);
         padding-bottom: 30px;
     }
 
-    .content-wrap .post-wrap .post-detail {
+    .post-detail {
         border-radius: 5px;
         overflow: hidden;
     }
 
-    .content-wrap .post-comments-wrap .title {
+    .title {
         text-align: center;
         margin-bottom: 15px;
         font-size: 1.25em;
     }
 
-    .content-wrap .post-comments-wrap .comments {
+    .comments {
         display: flex;
         flex-direction: column;
         align-items: center;

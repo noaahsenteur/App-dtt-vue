@@ -54,25 +54,25 @@ export default class Comment extends Vue {
         
     }
 
-    .comment .head {
+    .head {
         padding-bottom: 10px;
         font-weight: 700;
         display: flex;
         justify-content:space-between;
     }
 
-    .comment .head .date {
+    .date {
         font-weight: 600;
         font-size: 0.75em;
         opacity: 0.5;
     }
 
-    .comment .body {
+    .body {
         opacity: 0.8;
     }
 
     @media only screen and (max-width:767px){
-         .comment .head {
+         .head {
              flex-direction: column;
          }
     }

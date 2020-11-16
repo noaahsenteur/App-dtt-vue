@@ -35,7 +35,7 @@ import { Vue, Prop, Component } from 'vue-property-decorator'
 /* Classes */
 export default class App extends Vue {
 
-  @Prop({ default: 'John doe' }) readonly title!: string
+    @Prop({ default: 'John doe' }) readonly title!: string
     @Prop({ default: 'John doe' }) readonly content!: string
     @Prop() readonly id!: string
     @Prop() readonly date!: string
@@ -57,14 +57,13 @@ export default class App extends Vue {
     transition-timing-function: ease;
     transition-duration: 0.2s;
     border: 1px solid #f4f4f9;
-
 }
 
 .info-card:hover {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
-.info-card .head-content{
+.head-content{
     padding-bottom: 25px;
     background: white;
     color: black;
@@ -74,7 +73,7 @@ export default class App extends Vue {
    
 }
 
-.info-card .body {
+.body {
     font-size: 0.75em;
     padding: 10px 15px 25px 25px;
     color: #677294;
